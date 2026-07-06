@@ -1,0 +1,490 @@
+<!DOCTYPE html>
+<html lang="es" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dr. Alejandro Andrade | Medicina Veterinaria</title>
+    
+    <!-- Google Fonts: Nunito para títulos (amigable, redondeada) e Inter para textos -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@500;700;800;900&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- FontAwesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        heading: ['Nunito', 'sans-serif'], // Fuente para el estilo flat/friendly
+                    },
+                    colors: {
+                        // Paleta extraída de "Mesa de trabajo 27.jpg"
+                        brand: {
+                            teal: '#13b5ba', // El verde/azul agua de las letras
+                            navy: '#2b4c7e', // El azul oscuro del perro central y las olas
+                            light: '#e0f7f8', // Fondo claro a juego
+                            sand: '#fcfaf5', // Fondo cálido muy sutil
+                        }
+                    },
+                    boxShadow: {
+                        // Sombra sólida típica del diseño flat/vectorial premium
+                        'flat': '6px 6px 0px 0px rgba(43, 76, 126, 1)',
+                        'flat-hover': '2px 2px 0px 0px rgba(43, 76, 126, 1)',
+                        'flat-teal': '6px 6px 0px 0px rgba(19, 181, 186, 1)',
+                    }
+                }
+            }
+        }
+    </script>
+    
+    <style>
+        body { background-color: #ffffff; }
+        
+        /* Contenedores para PNGs transparentes */
+        .vector-container {
+            display: flex;
+            align-items: flex-end; /* Para que las patas de los vectores toquen el suelo */
+            justify-content: center;
+        }
+        
+        .vector-image {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            object-position: bottom; /* Alinea los vectores abajo */
+        }
+
+        /* Olas SVG para separar secciones con estilo flat */
+        .wave-top {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            overflow: hidden;
+            line-height: 0;
+        }
+        .wave-top svg {
+            position: relative;
+            display: block;
+            width: calc(100% + 1.3px);
+            height: 60px;
+        }
+
+        /* Estilos de profundidad hero */
+        .parallax-hero-wrap {
+            transform-style: preserve-3d;
+        }
+        .parallax-hero-wrap .parallax-pet {
+            filter: drop-shadow(0 30px 40px rgba(43,76,126,0.25));
+        }
+    </style>
+</head>
+<body class="font-sans text-brand-navy antialiased selection:bg-brand-teal selection:text-white">
+
+    <nav class="fixed w-full z-50 bg-white border-b-2 border-gray-100 transition-all duration-300" id="navbar">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
+            <div class="flex justify-between h-20 items-center">
+                
+                <!-- Logo -->
+                <div class="flex-shrink-0 flex items-center cursor-pointer group" onclick="window.scrollTo(0,0)">
+                    <img src="ALEJO_LOGO_Mesa_de_trabajo_1.webp" alt="Logo Dr. Alejandro Andrade" class="h-28 w-auto object-contain group-hover:scale-105 transition-transform">
+                </div>
+
+                <!-- Desktop Menu -->
+                <div class="hidden md:flex items-center space-x-8">
+                    <a href="#servicios" class="font-heading font-bold text-gray-500 hover:text-brand-teal transition-colors">Servicios</a>
+                    <a href="#tarifas" class="font-heading font-bold text-gray-500 hover:text-brand-teal transition-colors">Tarifas</a>
+                    <a href="#jornadas" class="font-heading font-bold text-gray-500 hover:text-brand-teal transition-colors">Jornadas</a>
+                    <!-- Botón estilo flat vector -->
+                    <a href="https://wa.me/573107096190" target="_blank" class="bg-brand-teal text-white px-6 py-2.5 rounded-full font-heading font-bold transition-all border-2 border-brand-teal hover:bg-white hover:text-brand-teal flex items-center gap-2">
+                        <i class="fa-brands fa-whatsapp text-lg"></i> Agendar Cita
+                    </a>
+                </div>
+
+                <!-- Mobile Menu Button -->
+                <div class="md:hidden flex items-center">
+                    <button id="mobile-menu-btn" class="text-brand-navy hover:text-brand-teal focus:outline-none p-2">
+                        <i class="fa-solid fa-bars text-2xl"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mobile Menu -->
+        <div id="mobile-menu" class="hidden md:hidden absolute w-full bg-white border-b-2 border-gray-100">
+            <div class="px-4 pt-2 pb-6 space-y-2">
+                <a href="#servicios" class="block px-3 py-3 font-heading font-bold text-gray-600 hover:text-brand-teal hover:bg-brand-light rounded-xl">Servicios</a>
+                <a href="#tarifas" class="block px-3 py-3 font-heading font-bold text-gray-600 hover:text-brand-teal hover:bg-brand-light rounded-xl">Tarifas</a>
+                <a href="#jornadas" class="block px-3 py-3 font-heading font-bold text-gray-600 hover:text-brand-teal hover:bg-brand-light rounded-xl">Jornadas de Esterilización</a>
+                <a href="https://wa.me/573107096190" target="_blank" class="mt-4 w-full flex justify-center items-center gap-2 bg-brand-teal text-white px-4 py-3 rounded-xl font-heading font-bold transition-colors">
+                    <i class="fa-brands fa-whatsapp text-xl"></i> Contactar por WhatsApp
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <header class="relative pt-32 pb-16 lg:pt-40 lg:pb-24 bg-white overflow-hidden">
+        <!-- Olas decorativas superiores (estilo de tu mesa de trabajo) -->
+        <div class="absolute top-20 left-0 w-full h-12 z-0 opacity-10 pointer-events-none">
+            <svg viewBox="0 0 1200 120" preserveAspectRatio="none" class="w-full h-full fill-brand-navy">
+                <path d="M321.39,56.44c58-10.79,114.16-30.13,172-41.86,82.39-16.72,168.19-17.73,250.45-.39C823.78,31,906.67,72,985.66,92.83c70.05,18.48,146.53,26.09,214.34,3V0H0V27.35A600.21,600.21,0,0,0,321.39,56.44Z"></path>
+            </svg>
+        </div>
+
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <div class="grid lg:grid-cols-2 gap-12 items-center">
+                
+                <!-- Text Content -->
+                <div class="max-w-2xl text-center lg:text-left order-2 lg:order-1">
+                    <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-brand-light text-brand-teal font-heading font-bold text-sm tracking-wide border-2 border-brand-teal mb-6">
+                        <i class="fa-solid fa-star"></i>
+                        <span>Medicina Veterinaria Premium</span>
+                    </div>
+                    
+                    <h1 class="text-5xl md:text-6xl font-heading font-black text-brand-navy leading-[1.1] mb-6">
+                        Tu mascota merece <span class="text-brand-teal block mt-2">lo mejor</span>
+                    </h1>
+                    <p class="text-lg md:text-xl text-gray-500 font-medium mb-8">
+                        Manos ayudando patas. Especialistas en el bienestar animal, llevando jornadas de esterilización seguras a todo el Valle del Cauca.
+                    </p>
+                    
+                    <div class="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
+                        <a href="#jornadas" class="bg-brand-teal text-white px-8 py-4 rounded-full font-heading font-black text-lg text-center transition-all border-2 border-brand-teal shadow-flat hover:shadow-flat-hover hover:translate-y-1 flex items-center justify-center gap-2">
+                            <i class="fa-solid fa-calendar-check"></i> Agendar Jornada
+                        </a>
+                        <a href="#tarifas" class="bg-white text-brand-navy px-8 py-4 rounded-full font-heading font-black text-lg text-center transition-all border-2 border-brand-navy shadow-flat hover:shadow-flat-hover hover:translate-y-1 flex items-center justify-center gap-2">
+                            Ver Tarifas
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Vector Illustration Container -->
+                <div class="relative order-1 lg:order-2 h-[400px] lg:h-[500px] flex items-center justify-center overflow-visible parallax-container" id="hero-parallax">
+                    <!-- Círculo de fondo -->
+                    <div class="absolute bottom-10 left-1/2 -translate-x-1/2 w-[80%] h-[80%] bg-brand-light rounded-full border-4 border-white parallax-bg" id="hero-bg-circle"></div>
+                    
+                    <!-- Mascota principal -->
+                    <div class="parallax-hero-wrap w-full h-full flex items-end justify-center pb-8" id="hero-wrap">
+                        <img src="1x/MANUAL/1x/Recurso 3.png" alt="Mascota Veterinaria" class="w-[70%] lg:w-[60%] h-auto object-contain parallax-pet" id="hero-pet">
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </header>
+
+    <section id="tarifas" class="py-24 bg-brand-sand relative border-t-2 border-gray-100">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-3xl mx-auto mb-16">
+                <span class="text-brand-teal font-heading font-bold uppercase tracking-widest text-sm">Transparencia Total</span>
+                <h2 class="text-4xl md:text-5xl font-heading font-black text-brand-navy mt-2 mb-4">Tarifas de Esterilización</h2>
+                <p class="text-gray-500 font-medium text-lg">Precios claros basados en el peso, asegurando la dosis exacta y la seguridad de tu mascota.</p>
+            </div>
+
+            <div class="grid md:grid-cols-12 gap-8 lg:gap-12 items-stretch">
+                
+                <!-- Felinos Card (Flat Vector Style) -->
+                <div class="md:col-span-5 bg-brand-teal rounded-[3rem] p-8 border-4 border-brand-navy shadow-flat flex flex-col relative overflow-hidden" id="card-felinos">
+                    <!-- Decoración plana de fondo -->
+                    <div class="absolute top-0 right-0 w-40 h-40 bg-white/20 rounded-bl-[100px] pointer-events-none"></div>
+
+                    <div class="relative z-10 text-center mb-6">
+                        <div class="inline-flex items-center justify-center w-16 h-16 bg-white rounded-full border-4 border-brand-navy mb-4 shadow-[4px_4px_0px_0px_rgba(43,76,126,1)] text-brand-teal text-2xl">
+                            <i class="fa-solid fa-cat"></i>
+                        </div>
+                        <h3 class="text-4xl font-heading font-black text-white leading-tight mb-2">Felinos</h3>
+                        <p class="text-white/90 font-medium text-lg">Gatos y Gatas</p>
+                    </div>
+                    
+                    <!-- Tarjeta Blanca de Precio con gato pegado al borde inferior -->
+                    <div class="bg-white rounded-3xl border-4 border-brand-navy relative z-10 mt-auto">
+                        <div class="p-6 pb-0">
+                            <div class="text-center mb-4">
+                                <div class="text-5xl font-heading font-black text-brand-navy">$55.000</div>
+                                <div class="text-sm font-bold text-brand-teal uppercase tracking-widest mt-2">Precio Único</div>
+                            </div>
+                            <ul class="space-y-3 mb-6">
+                                <li class="flex items-center text-sm font-bold text-brand-navy gap-3">
+                                    <i class="fa-solid fa-check text-brand-teal"></i> Anestesia segura
+                                </li>
+                                <li class="flex items-center text-sm font-bold text-brand-navy gap-3">
+                                    <i class="fa-solid fa-check text-brand-teal"></i> Rápida recuperación
+                                </li>
+                            </ul>
+                            <a href="https://wa.me/573107096190?text=Hola,%20quiero%20agendar%20un%20felino" target="_blank" class="block w-full py-3 bg-brand-navy text-white text-center font-heading font-black rounded-xl border-2 border-transparent hover:bg-white hover:text-brand-navy hover:border-brand-navy transition-colors">
+                                Reservar Cupo
+                            </a>
+                        </div>
+                        <!-- Gato pegado al borde inferior de la tarjeta blanca -->
+                        <div class="flex justify-center" style="margin-bottom: -4px;">
+                            <img src="1x/MANUAL/1x/Recurso 5.png" alt="Gato - Felinos" class="w-36 h-36 object-contain drop-shadow-lg">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Caninos Card (Flat Vector Style) -->
+                <div class="md:col-span-7 bg-white rounded-[3rem] p-8 border-4 border-brand-navy shadow-flat flex flex-col" id="card-caninos">
+                    <div class="flex items-center gap-4 mb-6">
+                        <div class="inline-flex items-center justify-center w-16 h-16 bg-brand-light rounded-full border-4 border-brand-teal shadow-[4px_4px_0px_0px_rgba(19,181,186,1)] text-brand-teal text-2xl">
+                            <i class="fa-solid fa-dog"></i>
+                        </div>
+                        <div>
+                            <h3 class="text-4xl font-heading font-black text-brand-navy">Caninos</h3>
+                            <p class="text-gray-500 font-medium">Tarifas escalonadas por peso</p>
+                        </div>
+                        <div class="ml-auto">
+                            <img src="1x/MANUAL/1x/Recurso 8.png" alt="Perro - Caninos" class="w-24 h-24 object-contain">
+                        </div>
+                    </div>
+                    
+                    <div class="flex-1 overflow-x-auto rounded-2xl border-2 border-gray-100 mb-6">
+                        <table class="w-full text-left border-collapse min-w-[350px]">
+                            <tbody>
+                                <!-- Filas de precios con diseño flat -->
+                                <tr class="border-b-2 border-gray-100 hover:bg-brand-light transition-colors group">
+                                    <td class="p-4 font-heading font-bold text-gray-600 group-hover:text-brand-teal">De 1 a 9 Kg</td>
+                                    <td class="p-4 font-heading font-black text-brand-navy text-right">$75.000</td>
+                                </tr>
+                                <tr class="border-b-2 border-gray-100 hover:bg-brand-light transition-colors group">
+                                    <td class="p-4 font-heading font-bold text-gray-600 group-hover:text-brand-teal">De 10 a 15 Kg</td>
+                                    <td class="p-4 font-heading font-black text-brand-navy text-right">$80.000</td>
+                                </tr>
+                                <tr class="border-b-2 border-gray-100 hover:bg-brand-light transition-colors group">
+                                    <td class="p-4 font-heading font-bold text-gray-600 group-hover:text-brand-teal">De 16 a 19 Kg</td>
+                                    <td class="p-4 font-heading font-black text-brand-navy text-right">$90.000</td>
+                                </tr>
+                                <tr class="border-b-2 border-gray-100 hover:bg-brand-light transition-colors group">
+                                    <td class="p-4 font-heading font-bold text-gray-600 group-hover:text-brand-teal">De 20 a 24 Kg</td>
+                                    <td class="p-4 font-heading font-black text-brand-navy text-right">$120.000</td>
+                                </tr>
+                                <tr class="border-b-2 border-gray-100 hover:bg-brand-light transition-colors group">
+                                    <td class="p-4 font-heading font-bold text-gray-600 group-hover:text-brand-teal">De 25 a 29 Kg</td>
+                                    <td class="p-4 font-heading font-black text-brand-navy text-right">$125.000</td>
+                                </tr>
+                                <tr class="border-b-2 border-gray-100 hover:bg-brand-light transition-colors group">
+                                    <td class="p-4 font-heading font-bold text-gray-600 group-hover:text-brand-teal">De 30 a 35 Kg</td>
+                                    <td class="p-4 font-heading font-black text-brand-navy text-right">$140.000</td>
+                                </tr>
+                                <tr class="bg-gray-50">
+                                    <td class="p-4 font-heading font-bold text-brand-navy">Más de 35 Kg</td>
+                                    <td class="p-4 font-heading font-black text-brand-teal text-right">+$5.000 x Kg extra</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <div class="flex items-center gap-4 bg-brand-light p-4 rounded-xl border-2 border-brand-teal/20">
+                        <i class="fa-solid fa-circle-info text-brand-teal text-xl"></i>
+                        <p class="text-sm font-medium text-brand-navy">Recomendamos leer atentamente las indicaciones pre-quirúrgicas antes de agendar tu cita.</p>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <section id="jornadas" class="py-24 bg-white relative">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex flex-col md:flex-row md:items-end justify-between mb-16 gap-6">
+                <div class="max-w-2xl">
+                    <span class="text-brand-teal font-heading font-bold uppercase tracking-widest text-sm mb-2 block">Cerca a ti</span>
+                    <h2 class="text-4xl md:text-5xl font-heading font-black text-brand-navy">Próximas Jornadas</h2>
+                </div>
+                <a href="https://instagram.com/dralejandroandrade" target="_blank" class="inline-flex items-center gap-2 px-6 py-3 bg-white border-2 border-brand-navy rounded-full text-brand-navy font-heading font-bold shadow-[4px_4px_0px_0px_rgba(43,76,126,1)] hover:translate-y-1 hover:shadow-[2px_2px_0px_0px_rgba(43,76,126,1)] transition-all">
+                    Ver en Instagram <i class="fa-brands fa-instagram text-xl"></i>
+                </a>
+            </div>
+
+            <div class="grid lg:grid-cols-2 gap-10">
+                
+                <!-- Tarjeta Jamundí -->
+                <div class="bg-[#e0f7f8] rounded-[2.5rem] border-4 border-brand-navy shadow-flat overflow-hidden flex flex-col sm:flex-row">
+                    <!-- Espacio para ilustración del perro a la izquierda -->
+                    <div class="w-full sm:w-2/5 bg-brand-teal/10 relative p-6 flex flex-col justify-between border-b-4 sm:border-b-0 sm:border-r-4 border-brand-navy">
+                        <div class="bg-white px-3 py-1 rounded-full border-2 border-brand-navy inline-block w-max mb-4">
+                            <span class="font-heading font-bold text-xs text-brand-navy">Aliado: MAJA</span>
+                        </div>
+                        
+                        <!-- ESPACIO PARA VECTOR -->
+                        <div class="flex-1 vector-container parallax-container">
+                            <img src="1x/MANUAL/1x/Recurso 7.png" alt="Mascota Jornada Jamundí" class="w-full h-32 object-contain parallax-layer-1">
+                        </div>
+                    </div>
+                    
+                    <div class="p-8 w-full sm:w-3/5 flex flex-col justify-center bg-white">
+                        <div class="flex items-center gap-4 mb-2">
+                            <div class="bg-brand-navy text-white px-3 py-1.5 rounded-lg border-2 border-brand-navy text-center">
+                                <span class="block text-[10px] font-bold uppercase">SEP</span>
+                                <span class="block text-2xl font-black leading-none">28</span>
+                            </div>
+                            <h3 class="text-4xl font-heading font-black text-brand-navy">Jamundí</h3>
+                        </div>
+                        
+                        <div class="mt-6 space-y-3 mb-8">
+                            <div class="flex items-start gap-3">
+                                <i class="fa-solid fa-clock mt-1 text-brand-teal"></i>
+                                <div>
+                                    <span class="block text-xs font-bold text-gray-500 uppercase">Hora</span>
+                                    <span class="font-heading font-bold text-brand-navy">8:00 a.m.</span>
+                                </div>
+                            </div>
+                            <div class="flex items-start gap-3">
+                                <i class="fa-solid fa-location-dot mt-1 text-brand-teal"></i>
+                                <div>
+                                    <span class="block text-xs font-bold text-gray-500 uppercase">Lugar</span>
+                                    <span class="font-heading font-bold text-brand-navy">Calle 4 # 11-51</span>
+                                    <span class="block text-sm text-gray-500">Café encantado</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <a href="https://wa.me/573107096190" target="_blank" class="bg-brand-teal text-white w-full py-3 rounded-xl font-heading font-black text-center border-2 border-brand-navy shadow-[4px_4px_0px_0px_rgba(43,76,126,1)] hover:translate-y-1 hover:shadow-[2px_2px_0px_0px_rgba(43,76,126,1)] transition-all">
+                            Reservar Cupo
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Tarjeta Yumbo -->
+                <div class="bg-[#f0f4f8] rounded-[2.5rem] border-4 border-brand-navy shadow-flat overflow-hidden flex flex-col sm:flex-row">
+                    <div class="w-full sm:w-2/5 bg-blue-100 relative p-6 flex flex-col justify-between border-b-4 sm:border-b-0 sm:border-r-4 border-brand-navy">
+                        <div class="bg-white px-3 py-1 rounded-full border-2 border-brand-navy inline-block w-max mb-4">
+                            <span class="font-heading font-bold text-xs text-brand-navy">Aliado: Yuli</span>
+                        </div>
+                        
+                        <!-- ESPACIO PARA VECTOR -->
+                        <div class="flex-1 vector-container parallax-container">
+                            <img src="1x/MANUAL/1x/Recurso 8.png" alt="Mascota Jornada Yumbo" class="w-full h-32 object-contain parallax-layer-1">
+                        </div>
+                    </div>
+                    
+                    <div class="p-8 w-full sm:w-3/5 flex flex-col justify-center bg-white">
+                        <div class="flex items-center gap-4 mb-2">
+                            <div class="bg-brand-navy text-white px-3 py-1.5 rounded-lg border-2 border-brand-navy text-center">
+                                <span class="block text-[10px] font-bold uppercase">SEP</span>
+                                <span class="block text-2xl font-black leading-none">21</span>
+                            </div>
+                            <h3 class="text-4xl font-heading font-black text-brand-navy">Yumbo</h3>
+                        </div>
+                        
+                        <div class="mt-6 space-y-3 mb-8">
+                            <div class="flex items-start gap-3">
+                                <i class="fa-solid fa-clock mt-1 text-blue-500"></i>
+                                <div>
+                                    <span class="block text-xs font-bold text-gray-500 uppercase">Hora</span>
+                                    <span class="font-heading font-bold text-brand-navy">7:00 a.m.</span>
+                                </div>
+                            </div>
+                            <div class="flex items-start gap-3">
+                                <i class="fa-solid fa-location-dot mt-1 text-blue-500"></i>
+                                <div>
+                                    <span class="block text-xs font-bold text-gray-500 uppercase">Lugar</span>
+                                    <span class="font-heading font-bold text-brand-navy">Cr 9 con Calle 10</span>
+                                    <span class="block text-sm text-gray-500">Parque Rafael Uribe</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <a href="https://wa.me/573107096190" target="_blank" class="bg-blue-500 text-white w-full py-3 rounded-xl font-heading font-black text-center border-2 border-brand-navy shadow-[4px_4px_0px_0px_rgba(43,76,126,1)] hover:translate-y-1 hover:shadow-[2px_2px_0px_0px_rgba(43,76,126,1)] transition-all">
+                            Reservar Cupo
+                        </a>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <footer class="bg-brand-navy text-white pt-16 pb-8 border-t-8 border-brand-teal relative overflow-hidden">
+        <!-- Olas decorativas en el footer -->
+        <div class="absolute -top-1 left-0 w-full overflow-hidden leading-[0] transform rotate-180">
+            <svg viewBox="0 0 1200 120" preserveAspectRatio="none" class="w-full h-8 fill-brand-teal">
+                <path d="M321.39,56.44c58-10.79,114.16-30.13,172-41.86,82.39-16.72,168.19-17.73,250.45-.39C823.78,31,906.67,72,985.66,92.83c70.05,18.48,146.53,26.09,214.34,3V0H0V27.35A600.21,600.21,0,0,0,321.39,56.44Z"></path>
+            </svg>
+        </div>
+
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 mt-8">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-12 mb-12">
+                
+                <!-- Brand -->
+                <div>
+                    <div class="flex items-center gap-3 mb-6">
+                        <div class="flex-shrink-0">
+                            <!-- Logo en el footer en blanco -->
+                            <img src="ALEJO_LOGO_Mesa_de_trabajo_1.webp" alt="Logo Dr. Alejandro Andrade" class="h-16 w-auto object-contain" style="filter: brightness(0) invert(1);">
+                        </div>
+                    </div>
+                    <p class="text-white/70 font-medium mb-6">
+                        Manos ayudando patas en Santiago de Cali y el Valle del Cauca.
+                    </p>
+                    <div class="flex space-x-3">
+                        <a href="https://instagram.com/dralejandroandrade" target="_blank" class="w-10 h-10 rounded-xl bg-white/10 flex items-center justify-center hover:bg-brand-teal border-2 border-transparent hover:border-brand-teal transition-all font-bold">
+                            <i class="fa-brands fa-instagram"></i>
+                        </a>
+                        <a href="https://wa.me/573107096190" target="_blank" class="w-10 h-10 rounded-xl bg-white/10 flex items-center justify-center hover:bg-green-500 border-2 border-transparent hover:border-green-500 transition-all font-bold">
+                            <i class="fa-brands fa-whatsapp"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Enlaces Rápidos -->
+                <div>
+                    <h4 class="font-heading font-black text-xl mb-6 text-brand-teal">Enlaces Rápidos</h4>
+                    <ul class="space-y-4 text-white/80 font-medium">
+                        <li><a href="#" class="hover:text-white hover:underline decoration-brand-teal decoration-2 underline-offset-4 transition-all">Inicio</a></li>
+                        <li><a href="#tarifas" class="hover:text-white hover:underline decoration-brand-teal decoration-2 underline-offset-4 transition-all">Tarifas</a></li>
+                        <li><a href="#jornadas" class="hover:text-white hover:underline decoration-brand-teal decoration-2 underline-offset-4 transition-all">Próximas Jornadas</a></li>
+                    </ul>
+                </div>
+
+                <!-- Contacto -->
+                <div>
+                    <h4 class="font-heading font-black text-xl mb-6 text-brand-teal">Contacto</h4>
+                    <ul class="space-y-4 text-white/80 font-medium">
+                        <li class="flex items-start gap-3">
+                            <i class="fa-solid fa-location-dot mt-1 text-brand-teal"></i>
+                            <span>Santiago de Cali<br>Valle del Cauca</span>
+                        </li>
+                        <li class="flex items-center gap-3 bg-white/5 p-3 rounded-xl border border-white/10">
+                            <i class="fa-brands fa-whatsapp text-green-400 text-xl"></i>
+                            <a href="https://wa.me/573107096190" target="_blank" class="hover:text-white font-heading font-bold text-lg">+57 310 709 61 90</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="border-t-2 border-white/10 pt-8 flex flex-col md:flex-row items-center justify-between text-sm text-white/50 font-medium">
+                <p>&copy; 2026 Dr. Alejandro Andrade. Diseño Flat Premium.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // ── Mobile menu ──────────────────────────────────────────
+            const btn = document.getElementById('mobile-menu-btn');
+            const menu = document.getElementById('mobile-menu');
+            const icon = btn.querySelector('i');
+
+            btn.addEventListener('click', () => {
+                menu.classList.toggle('hidden');
+                icon.classList.toggle('fa-xmark');
+                icon.classList.toggle('fa-bars');
+            });
+
+            menu.querySelectorAll('a').forEach(link => {
+                link.addEventListener('click', () => {
+                    menu.classList.add('hidden');
+                    icon.classList.remove('fa-xmark');
+                    icon.classList.add('fa-bars');
+                });
+            });
+        });
+    </script>
+</body>
+</html>
